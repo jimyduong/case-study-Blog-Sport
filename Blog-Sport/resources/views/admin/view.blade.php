@@ -31,7 +31,7 @@
         <!-- Post Content -->
         <div>
             <p class="text-justify">
-                {{$blog->content}}
+                {!! $blog->content !!}
             </p>
         </div>
 

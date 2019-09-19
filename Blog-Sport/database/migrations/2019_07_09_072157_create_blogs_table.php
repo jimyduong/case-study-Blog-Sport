@@ -20,7 +20,7 @@ class CreateBlogsTable extends Migration
             $table->text('content');
             $table->integer('view')->default(0);
             $table->integer('like')->default(0);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

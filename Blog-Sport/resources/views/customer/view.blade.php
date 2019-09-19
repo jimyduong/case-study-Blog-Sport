@@ -29,7 +29,7 @@
         <!-- Post Content -->
         <span class="text-justify">
             <p>
-                {{$blog->content}}
+                {!! $blog->content !!}
             </p>
         </span>
 

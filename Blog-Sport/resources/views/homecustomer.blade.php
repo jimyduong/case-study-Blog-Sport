@@ -25,6 +25,8 @@
     <link href="css/blog-home.css" rel="stylesheet">
     <link href="css/blog-post.css" rel="stylesheet">
     <link href="css/drop-button.css" rel="stylesheet">
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top" style="background: lightblue">
@@ -33,18 +35,35 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-danger ">Menu</button>
-                        <div class="dropdown-content dropdown-menu">
-                            <a href="{{route('customer.index')}}">Customer page</a>
-                            <a href="{{route('admin.index')}}">Admin page</a>
-                            <a href="{{route('category.index')}}">Category page</a>
-                            <hr>
-                            <a href="{{route('login')}}">
-                                Login
-                            </a>
+                    @guest
+                        <a href="{{route('login')}}">
+                            <button class="btn btn-primary">Login</button>
+                        </a>
+                        <a href="{{route('register')}}">
+                            <button class="btn btn-primary">Register</button>
+                        </a>
+                    @else
+                        <div class="dropdown">
+                            <button class="btn btn-outline-info ">Menu</button>
+                            <div class="dropdown-content dropdown-menu">
+                                @if(Auth::user()->role == "admin")
+                                <a href="{{route('customer.index')}}">Customer page</a>
+                                <a href="{{route('admin.index')}}">Admin page</a>
+                                <a href="{{route('category.index')}}">Category page</a>
+                                <hr>
+                                @endif
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    @endguest
                 </li>
 
             </ul>
@@ -121,7 +140,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    CKEDITOR.replace( 'ckeditor' );
+</script>
 <footer class="py-5" style="background: lightblue">
     <div class="container">
         <p class="m-0 text-center text-black-50">Copyright &copy; Your Website 2019</p>

@@ -26,14 +26,14 @@
                     </div>
                     <div class="form-group">
                         <label>Content</label>
-                        <textarea type="text" class="form-control" name="contents" required></textarea>
+                        <textarea type="text" class="form-control" id="ckeditor" name="contents" required></textarea>
                         @if($errors->has('contents'))
                             <p class=" text-danger">{{ $errors->first('contents') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Image</label>
-                        <input type="text" class="form-control" name="image" required>
+                        <input type="text" class="form-control" name="image" >
                     </div>
                     <div class="form-group">
                         <label>Thể loại </label>

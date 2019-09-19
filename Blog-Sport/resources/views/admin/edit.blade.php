@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label>Content</label>
-                        <textarea type="text" class="form-control" name="contents" required>{{$blog->content}}</textarea>
+                        <textarea type="text" class="form-control" id='ckeditor' name="contents" required>{{$blog->content}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Image</label><br>
