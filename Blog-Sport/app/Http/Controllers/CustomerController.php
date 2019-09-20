@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Blog;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
@@ -39,9 +40,8 @@ class CustomerController extends Controller
 //            Session::forget($blogKey);
         }
         $blog = Blog::findOrFail($id);
-//        $blog->view++;
-//        $blog->save();
-        return view('customer.view', compact('blog'));
+        $status = $this->checkStatus($id);
+        return view('customer.view', compact('blog','status'));
     }
 
     public function search(Request $request)
@@ -65,5 +65,21 @@ class CustomerController extends Controller
         $category = Category::all();
 
         return view('customer.list', compact('blogs', 'totalPostFilter', 'category', 'categoryFilter'));
+    }
+
+    public function checkStatus($blogId)
+    {
+        $blogs = Blog::findOrFail($blogId);
+        $likesInBlog = $blogs->likes;
+        if (count($likesInBlog) == 0) {
+            return false;
+        } else {
+            foreach ($likesInBlog as $like) {
+                if ($like->user->id === Auth::id()) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

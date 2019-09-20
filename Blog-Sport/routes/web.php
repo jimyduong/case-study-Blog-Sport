@@ -17,6 +17,8 @@ Route::get('/topLike', 'CustomerController@showByLike')->name('customer.show.lik
 Route::get('{id}/view', 'CustomerController@view')->name('customer.view');
 Route::get('/search', 'CustomerController@search')->name('customer.search');
 Route::get('/filter','CustomerController@filterByCategory')->name('customer.filterByCategory');
+Route::get('/{id}/like','LikeController@likeBlog')->name('like.blog');
+Route::get('/{id}/dislike','LikeController@dislikeBlog')->name('dislike.blog');
 
 Route::group(['prefix' => 'category'], function () {
     Route::get('/','CategoryController@index')->name('category.index');

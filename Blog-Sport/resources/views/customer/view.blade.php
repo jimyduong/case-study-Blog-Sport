@@ -18,10 +18,21 @@
         <p class="badge badge-primary text-wrap">
             {{$blog->category->name}}
         </p>
-
-        <p style="float: right">
-            <button class="">like</button>
-        </p>
+        @if(Auth::user())
+            @if(!$status)
+                <p style="float: right">
+                    <a href="{{route('like.blog',$blog->id)}}">
+                        <button class="">Like</button>
+                    </a>
+                </p>
+            @else
+                <p style="float: right">
+                    <a href="{{route('dislike.blog',$blog->id)}}">
+                        <button class="">Unlike</button>
+                    </a>
+                </p>
+            @endif
+        @endif
         <hr>
         <!-- Preview Image -->
         <img class="img-fluid rounded" src="{{asset($blog->image)}}" alt="">
